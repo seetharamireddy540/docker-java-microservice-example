@@ -8,7 +8,7 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.5.RELEASE")
         classpath('gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.13.0')
-
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.7'
     }
 }
 
@@ -20,6 +20,7 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'com.palantir.docker'
+apply plugin: 'com.google.protobuf'
 
 bootJar {
     baseName = 'gs-spring-boot-docker'
@@ -34,6 +35,12 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
+
+    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.9.7'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.7'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.7'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.7'
+
     compile("org.springframework.boot:spring-boot-starter-web")
     testCompile("org.springframework.boot:spring-boot-starter-test")
     compile 'com.google.guava:guava:21.0'

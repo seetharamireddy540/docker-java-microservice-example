@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<staff>
+    <name>Ram</name>
+    <wives>
+        <Pita>2</Pita>
+        <Gita>1</Gita>
+    </wives>
+    <age>24</age>
+    <salary>123454</salary>
+    <position>Developer</position>
+    <skills>
+        <skills>Java</skills>
+        <skills>GO</skills>
+    </skills>
+</staff>
