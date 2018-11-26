@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomerOrder createDate="2018-11-23">
+    <CustomerOrderInfos channel="Web">
+        <CustomerOrderInfo orderNumber="Order-Number-123"/>
+        <CustomerOrderInfo orderNumber="Order-Number-124"/>
+    </CustomerOrderInfos>
+    <CustomerAddress AddressType="HOME" >
+        <StreetName>S9326 Satterlee</StreetName>
+        <City>Snoqualmie</City>
+        <ZIP-CODE>98065</ZIP-CODE>
+    </CustomerAddress>
+</CustomerOrder>
