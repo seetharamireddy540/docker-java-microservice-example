@@ -49,10 +49,12 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
+
 task unpack(type: Copy) {
     dependsOn bootJar
     from(zipTree(tasks.bootJar.outputs.files.singleFile))
     into("build/dependency")
+
 }
 
 
