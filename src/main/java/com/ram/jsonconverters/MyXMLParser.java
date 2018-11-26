@@ -77,7 +77,8 @@ public class MyXMLParser {
   private Staff convertXMLtoJava() {
     Staff staff = null;
     try {
-      File file = new File("/Volumes/Unix/workplace/PersonalProjects/docker-java-microservice-example/src/main/resources/StaffData.xml");
+
+      File file = new File(getClass().getClassLoader().getResource("StaffData.xml").getFile());
       XmlMapper xmlMapper = new XmlMapper();
       staff = xmlMapper.readValue(file, Staff.class);
       System.out.println("done ... staff - " + staff.getName());
