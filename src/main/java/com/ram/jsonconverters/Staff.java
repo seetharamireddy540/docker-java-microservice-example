@@ -17,7 +17,6 @@ public class Staff {
   private String position;
   private BigDecimal salary;
   private List<String> skills;
-
   private Map<String, Integer> wivesCount;
 
   @JsonProperty("wives")

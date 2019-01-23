@@ -1,6 +1,5 @@
 package com.ram.jsonconverters;
 
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import java.io.File;
@@ -25,9 +24,9 @@ public class CustomerOrderXMLProcessApp {
 //      System.out.println(customerOrderXMLStr);
 
       File file = new File(CustomerOrderXMLProcessApp.class.getClassLoader()
-                                     .getResource("CustomerOrder123.xml").getFile());
+                                                           .getResource("CustomerOrder123.xml").getFile());
 
-      CustomerOrder customerOrder = mapper.readValue(file,  CustomerOrder.class);
+      CustomerOrder customerOrder = mapper.readValue(file, CustomerOrder.class);
 
       System.out.println(customerOrder.getCreateDate());
 
@@ -36,7 +35,7 @@ public class CustomerOrderXMLProcessApp {
       System.out.println(customerOrder.getCustomerAddress().getCity());
 
 
-    }catch (Exception ex ) {
+    } catch (Exception ex) {
       ex.printStackTrace();
     }
   }

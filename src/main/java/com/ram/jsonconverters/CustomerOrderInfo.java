@@ -9,7 +9,7 @@ import java.util.Objects;
 public class CustomerOrderInfo implements Serializable {
 
   @JsonProperty("OrderNumebr")
-  @JacksonXmlProperty(isAttribute=true)
+  @JacksonXmlProperty(isAttribute = true)
   private String orderNumber;
 
   public CustomerOrderInfo() {

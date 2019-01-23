@@ -3,12 +3,13 @@ package com.ram.jsonconverters;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class CustomerAddress {
+public class CustomerAddress implements Serializable {
 
   @JsonProperty("AddressType")
-  @JacksonXmlProperty(isAttribute = true , localName = "AddressType")
+  @JacksonXmlProperty(isAttribute = true, localName = "AddressType")
   private AddressType addressType;
 
   @JsonProperty("StreetName")

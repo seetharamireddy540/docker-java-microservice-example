@@ -7,22 +7,40 @@ buildscript {
     }
     dependencies {
         classpath "gradle.plugin.com.javagen:schema-gen:0.9.1"
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.5.RELEASE")
-        classpath('gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.13.0')
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.7'
+        classpath "gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.13.0"
+        classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.7"
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2"
     }
+}
+
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'idea'
+    id 'eclipse'
+    id 'org.springframework.boot' version "2.1.1.RELEASE"
+    id 'io.spring.dependency-management' version "1.0.6.RELEASE"
+    id 'com.palantir.docker' version "0.20.1"
+    id 'com.google.protobuf' version "0.8.7"
+    id 'com.javagen.schema-gen'  version "0.9.1"
+    id 'org.sonarqube' version "2.6.2"
+    id 'checkstyle'
+    id 'maven-publish'
 }
 
 group = 'springio'
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-apply plugin: 'com.palantir.docker'
-apply plugin: 'com.google.protobuf'
-apply plugin: "com.javagen.schema-gen"
+checkstyle {
+    toolVersion '8.15'
+    configFile file("config/checkstyle/checkstyle.xml")
+    ignoreFailures = false
+}
+checkstyleMain {
+    source ='src/main/java'
+}
+checkstyleTest {
+    source ='src/test/java'
+}
 
 bootJar {
     baseName = 'gs-spring-boot-docker'
@@ -38,15 +56,21 @@ targetCompatibility = 1.8
 
 dependencies {
 
+    compile 'org.objenesis:objenesis:2.6'
+    compile group: 'net.bytebuddy', name:'byte-buddy', version: '1.9.2'
     compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.9.7'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.7'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.7'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.7'
 
     compile("org.springframework.boot:spring-boot-starter-web")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
     compile 'com.google.guava:guava:21.0'
+    compile 'com.google.inject:guice:4.2.0'
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile 'org.mockito:mockito-core:2.19.1'
+
 }
 
 
@@ -57,9 +81,49 @@ task unpack(type: Copy) {
 
 }
 
+sonarqube {
+    properties {
+        property "sonar.sources", "src"
+        property "sonar.projectKey", "seetharamireddy540_docker-java-microservice-example"
+        property "sonar.organization", "seetharamireddy540-github"
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.login", "4918870c82dbb8cb0f58856383358e5c6cb8ae11"
+    }
+}
+
 
 docker {
     name "${project.group}/${bootJar.baseName}"
     copySpec.from(tasks.unpack.outputs).into("dependency")
     buildArgs(['DEPENDENCY': "dependency"])
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            pom {
+                name = 'My Library'
+                description = 'A concise description of my library'
+                url = 'http://www.example.com/library'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'johnd'
+                        name = 'John Doe'
+                        email = 'john.doe@example.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://example.com/my-library.git'
+                    developerConnection = 'scm:git:ssh://example.com/my-library.git'
+                    url = 'http://example.com/my-library/'
+                }
+            }
+        }
+    }
 }

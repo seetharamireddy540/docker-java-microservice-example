@@ -1,6 +1,5 @@
 package com.ram.jsonconverters;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,15 +10,15 @@ import java.io.Serializable;
 
 @JsonRootName("CustomerOrder")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CustomerOrder implements Serializable {
+public class  CustomerOrder implements Serializable {
 
-  @JacksonXmlProperty(isAttribute=true)
+  @JacksonXmlProperty(isAttribute = true)
   @JsonProperty("CreateDate")
-  @JsonIgnoreProperties(ignoreUnknown=true)
+  @JsonIgnoreProperties(ignoreUnknown = true)
   private String createDate;
 
   @JsonProperty("CustomerOrderInfos")
-  @JsonIgnoreProperties(ignoreUnknown=true)
+  @JsonIgnoreProperties(ignoreUnknown = true)
   private CustomerOrderInfos customerOrderInfos;
 
   @JsonProperty("CustomerAddress")
